@@ -170,12 +170,11 @@
 
     def checkFaceEmotions(self):
         if not self.currentId == None:
-            self.logger.info(self.faceCharac.analyzeFaceCharacteristics(self.currentId))
+            self.faceCharac.analyzeFaceCharacteristics(self.currentId)
             key = self.template.format(ID=self.currentId)
             try:
                 emotions = self.memory.getData(key)
                 mainEmotion = max(zip(emotions[1:], self.emotionList), key=lambda x: x[0])
-                self.logger.info(mainEmotion)
                 if mainEmotion[0] >= self.getParameter("emotional threshold"):
                     mainEmotion[1](mainEmotion[0]) # calling output
             except RuntimeError:
